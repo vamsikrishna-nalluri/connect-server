@@ -5,7 +5,6 @@ exports.create = function(req, res) {
         name: req.body.name,
         price: req.body.price
     });
-
     product.save(function(err) {
         if (err) {
             return next(err);
@@ -30,10 +29,10 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-  Product.findByIdAndRemove(req.params.id, function(err){
-      if(err) return next(err);
-      res.send('Product deleted');
-  });
+    Product.findByIdAndRemove(req.params.id, function(err) {
+        if (err) return next(err);
+        res.send('Product Deleted');
+    });
 };
 
 
