@@ -1,10 +1,10 @@
 const Product = require('../models/product.model');
 
 exports.getAll = function(req, res) {
-  Product.find({}, function(err, products){
-      if(err) return next(err);
-      res.send(products);
-  }); 
+    Product.find({}, function(err, products) {
+        if (err) return next(err);
+        res.send(products);
+    });
 };
 
 exports.get = function(req, res) {

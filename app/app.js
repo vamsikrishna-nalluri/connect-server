@@ -15,17 +15,11 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // initialize our express app
 const app = express();
 
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
-
 const product = require('./routes/product.route'); // Imports routes for the products
 app.use('/products', product);
-
-
 
 let port = process.env.PORT;
 app.listen(port, () => {
