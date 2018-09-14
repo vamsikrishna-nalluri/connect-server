@@ -1,5 +1,19 @@
 const Product = require('../models/product.model');
 
+exports.getAll = function(req, res) {
+  Product.find({}, function(err, products){
+      if(err) return next(err);
+      res.send(products);
+  }); 
+};
+
+exports.get = function(req, res) {
+    Product.findById(req.params.id, function(err, product) {
+        if (err) return next(err);
+        res.send(product);
+    });
+};
+
 exports.create = function(req, res) {
     let product = new Product({
         name: req.body.name,
@@ -9,16 +23,8 @@ exports.create = function(req, res) {
         if (err) {
             return next(err);
         }
-        res.send('Product Created successfully')
+        res.send('Product created successfully')
     })
-};
-
-
-exports.get = function(req, res) {
-    Product.findById(req.params.id, function(err, product) {
-        if (err) return next(err);
-        res.send(product);
-    });
 };
 
 exports.update = function(req, res) {
@@ -33,11 +39,4 @@ exports.delete = function(req, res) {
         if (err) return next(err);
         res.send('Product Deleted');
     });
-};
-
-
-
-//Simple version, without validation or sanitation
-exports.test = function(req, res) {
-    res.send('Greetings from the Test controller 1!');
 };
