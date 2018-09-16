@@ -1,10 +1,12 @@
-const User = require('../models/user.model');
+const User = require('../models/models').User;
 const passport = require('passport');
+
+const userController = {};
 
 /**
  * Register new user.
  */
-exports.register = function(req, res, next) {
+userController.register = function(req, res, next) {
     var user = new User();
     user.username = req.body.user.username;
     user.email = req.body.user.email;
@@ -15,7 +17,7 @@ exports.register = function(req, res, next) {
     }).catch(next);
 }
 
-exports.login = function(req, res, next) {
+userController.login = function(req, res, next) {
     if (!req.body.user.email) {
         return res.status(422).json({ errors: { email: "can't be blank." } });
     }
@@ -34,14 +36,14 @@ exports.login = function(req, res, next) {
     })(req, res, next)
 }
 
-exports.getUserInfo = function(req, res, next) {
+userController.getUserInfo = function(req, res, next) {
     User.findById(req.payload.id).then(function(user) {
         if (!user) { return res.sendStatus(401); }
         return res.json({ user: user.toAuthJSON() });
     }).catch(next);
 }
 
-exports.update = function(req, res, next) {
+userController.update = function(req, res, next) {
     User.findById(req.payload.id).then(function(user) {
         if (!user) { return res.sendStatus(401); }
         if (typeof req.body.user.username !== 'undefined') {
@@ -64,3 +66,5 @@ exports.update = function(req, res, next) {
         });
     }).catch(next);
 }
+
+module.exports = userController;

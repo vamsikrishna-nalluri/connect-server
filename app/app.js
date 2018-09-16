@@ -18,10 +18,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-require('./models/user.model');
+require('./models/models');
 require('./config/passport');
-
 app.use(require('./routes/app.route')); // import all the routes
+
+
+
 
 let port = process.env.PORT;
 app.listen(port, () => {
