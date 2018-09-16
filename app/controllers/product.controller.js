@@ -1,20 +1,22 @@
 const Product = require('../models/product.model');
 
-exports.getAll = function(req, res) {
+const productController = {};
+
+productController.getAll = function(req, res, next) {
     Product.find({}, function(err, products) {
         if (err) return next(err);
         res.send(products);
     });
 };
 
-exports.get = function(req, res) {
+productController.get = function(req, res, next) {
     Product.findById(req.params.id, function(err, product) {
         if (err) return next(err);
         res.send(product);
     });
 };
 
-exports.create = function(req, res) {
+productController.create = function(req, res, next) {
     let product = new Product({
         name: req.body.name,
         price: req.body.price
@@ -27,16 +29,18 @@ exports.create = function(req, res) {
     })
 };
 
-exports.update = function(req, res) {
+productController.update = function(req, res) {
     Product.findByIdAndUpdate(req.params.id, { $set: req.body }, function(err, product) {
         if (err) return next(err);
         res.send("Product updated");
     });
 };
 
-exports.delete = function(req, res) {
+productController.delete = function(req, res) {
     Product.findByIdAndRemove(req.params.id, function(err) {
         if (err) return next(err);
         res.send('Product Deleted');
     });
 };
+
+module.exports = productController;

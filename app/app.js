@@ -18,8 +18,10 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const product = require('./routes/product.route'); // Imports routes for the products
-app.use('/products', product);
+require('./models/user.model');
+require('./config/passport');
+
+app.use(require('./routes/app.route')); // import all the routes
 
 let port = process.env.PORT;
 app.listen(port, () => {
